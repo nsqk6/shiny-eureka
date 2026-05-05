@@ -1,0 +1,159 @@
+-- 查询所有数据库
+show databases;
+-- 查询当前数据库
+select database();
+-- 创建库
+create database if not exists 库名;
+-- 删除数据库
+drop database if exists 库名;
+-- 使用数据库
+use 库名;
+-- 查询当前数据库所有表
+ show tables;
+-- 查询表结构
+desc 表名;
+-- 查询指定表的建表语句
+show create table 表名;
+-- 创建表
+create table 表名(
+    字段1 数据类型,
+    字段2 数据类型,
+    字段3 数据类型,
+    ...
+)
+-- 添加字段
+alter table 表名 add 字段 数据类型;
+-- 修改字段数据类型
+alter table 表名 modify 字段 数据类型;
+-- 修改字段名和数据类型
+alter table 表名 change 旧字段名 新字段名 数据类型;
+-- 删除字段
+alter table 表名 drop 字段;
+-- 修改表名
+alter table 旧表名 rename 新表名;
+-- 删除表   
+drop table if exists 表名;
+-- 添加指定字段数据
+insert into 表名(字段1, 字段2, ...) values (值1, 值2, ...);
+-- 给全部字段添加数据
+insert into 表名 values (值1, 值2, ...);
+-- 批量添加数据
+insert into 表名(字段1, 字段2, ...) values (值1, 值2, ...), (值1, 值2, ...), ...;
+-- 修改数据
+update 表名 set 字段1=值1, 字段2=值2, ... where 条件;
+-- 删除数据
+delete from 表名 where 条件;
+-- 查询多个字段
+select 字段1, 字段2, ... from 表名;
+select * from 表名; -- 查询所有字段
+-- 查询去重数据
+select distinct 字段 from 表名;
+-- 条件查询
+select 字段1, 字段2, ... from 表名 where 条件;
+-- 聚合函数
+select count(*) from 表名; -- 统计总行数
+select count(字段) from 表名; -- 统计指定字段的非空值数量
+select sum(字段) from 表名; -- 计算指定字段的总和
+select avg(字段) from 表名; -- 计算指定字段的平均值
+select max(字段) from 表名; -- 获取指定字段的最大值
+select min(字段) from 表名; -- 获取指定字段的最小值
+-- 分组查询
+select 字段1, count(*) from 表名 group by 字段1; -- 按字段1分组统计数量
+select 字段1, sum(字段2) from 表名 group by 字段1; -- 按字段1分组计算字段2的总和
+-- 排序查询
+select 字段1, 字段2, ... from 表名 order by 字段1 [asc|desc], 字段2 [asc|desc], ...;
+-- 分页查询
+select 字段1, 字段2, ... from 表名 limit 偏移量, 行数;
+-- 联合查询
+select 字段1, 字段2, ... from 表名1
+union
+select 字段1, 字段2, ... from 表名2;
+-- 联合查询去重
+select 字段1, 字段2, ... from 表名1
+union all
+select 字段1, 字段2, ... from 表名2;
+-- 子查询
+select 字段1, 字段2, ... from 表名 where 字段 in (select 字段 from 表名 where 条件);
+-- 连接查询
+select 表名1.字段1, 表名2.字段2, ... from 表名1
+join 表名2 on 表名1.字段 = 表名2.字段
+-- 左连接查询
+select 表名1.字段1, 表名2.字段2, ... from 表名
+left join 表名2 on 表名1.字段 = 表名2.字段
+-- 右连接查询       
+select 表名1.字段1, 表名2.字段2, ... from 表名1
+right join 表名2 on 表名1.字段 = 表名2.字段
+-- 全连接查询
+select 表名1.字段1, 表名2.字段2, ... from 表名
+full join 表名2 on 表名1.字段 = 表名2.字段
+-- 自连接查询
+select a.字段1, b.字段2, ... from 表名 a
+join 表名 b on a.字段 = b.字段
+-- 视图查询
+create view 视图名 as select 字段1, 字段2, ... from 表名 where 条件;
+select * from 视图名;
+-- 查询用户
+select user from mysql.user;
+-- 创建用户
+create user '用户名'@'主机' identified by '密码';
+-- 删除用户
+drop user '用户名'@'主机';
+-- 修改用户密码
+alter user '用户名'@'主机' identified by '新密码';
+-- 授权用户权限
+grant 权限 on 数据库.表 to '用户名'@'主机';
+-- 撤销用户权限
+revoke 权限 on 数据库.表 from '用户名'@'主机';
+-- 查询权限
+show grants for '用户名'@'主机';
+-- 字符串函数
+select concat(字段1, 字段2) from 表名; -- 连接字符串
+select length(字段) from 表名; -- 获取字符串长度
+select upper(字段) from 表名; -- 转换为大写
+select lower(字段) from 表名; -- 转换为小写
+select substring(字段, 起始位置, 长度) from 表名; -- 截取字符串
+select replace(字段, '旧字符串', '新字符串') from 表名; --  替换字符串
+-- 日期函数 
+select now(); -- 获取当前日期和时间
+select curdate(); -- 获取当前日期
+select curtime(); -- 获取当前时间
+select date_add(字段, interval 时间单位); -- 日期加上时间间隔
+select date_sub(字段, interval 时间单位); -- 日期减去时间间隔
+select datediff(日期1, 日期2); -- 计算两个日期之间的天数
+select date_format(字段, '格式'); -- 格式化日期
+-- 数学函数
+select abs(字段) from 表名; -- 绝对值
+select ceil(字段) from 表名; -- 向上取整
+select floor(字段) from 表名; -- 向下取整
+select round(字段) from 表名; -- 四舍五入
+select rand() from 表名; -- 生成随机数
+select pow(字段, 指数) from 表名; -- 计算字段的指数次幂
+select sqrt(字段) from 表名; -- 计算字段的平方根
+-- 流程控制函数
+select if(条件, 值1, 值2) from 表名; -- 条件满足返回值1，否则返回值2
+select case when 条件1 then 值1
+when 条件2 then 值2
+else 值3 end from 表名; -- 多条件判断
+select ifnull(字段, 替代值) from 表名; -- 如果字段值为null，则返回替代值
+select nullif(字段1, 字段2) from 表名; -- 如果字段1和字段2相等，则返回null，否则返回字段1
+-- 其他函数
+select version(); -- 获取数据库版本
+select database(); -- 获取当前数据库
+select user(); -- 获取当前用户
+select @@version; -- 获取数据库版本
+select @@hostname; -- 获取数据库主机名
+select @@port; -- 获取数据库端口号
+select @@datadir; -- 获取数据库数据目录
+select @@character_set_database; -- 获取数据库字符集
+select @@collation_database; -- 获取数据库排序规则
+-- 外键约束
+create table 表名(
+    字段1 数据类型,
+    字段2 数据类型,
+    ...
+    foreign key (字段) references 另一个表(字段)
+);
+
+
+
+
